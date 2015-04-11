@@ -20,11 +20,6 @@ class TestBestMusic(unittest.TestCase):
             self.assertIsNotNone(chart[i].artist)
             self.assertIsNotNone(chart[i].title)
 
-    def test_normalization(self):
-        bm = BestMusic()
-        chart = bm.normalizeChart(chart=bm.getChart(year=1971))
-        self.assertNotEqual(len(chart), 0)
-
 class TestProvider(unittest.TestCase):
 
     def test_getChart(self):
@@ -34,15 +29,17 @@ class TestProvider(unittest.TestCase):
 
     def test_normalization(self):
         p = ProviderClass()
+        p.addItem('artist','title',1,'sourceId')
+        p.addItem('artist','title',3,'sourceId')
         chart = p.getChart(year=1971)
-        normChart = p.normalizeChart(chart=chart)
-        self.assertEqual(chart, normChart)
+        chart = p.normalizeChart(chart)
+        self.assertEqual(len(chart), 1)
 
     def test_addItem(self):
         p = ProviderClass()
         chart = p.getChart(year=1971)
         l = len(chart)
-        p.addItem('artist','title','score','id')
+        p.addItem('artist','title',1,'sourceId')
         self.assertEqual(l+1, len(chart))
 
 

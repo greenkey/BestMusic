@@ -19,26 +19,26 @@ from bestmusic import ProviderClass, ChartItem
 
 
 class Provider(ProviderClass):
-    myIdName = 'mockProvider'
+    idName = 'mockProvider'
      
     def getChart(self, year):
         self.addItem(
             artist = 'Dolphins',
             title = 'So Long, and Thanks for All the Fish',
             score = 100/1,
-            id = '1'
+            sourceId = '1'
         )
         self.addItem(
             artist = 'Led Zeppelin',
             title = 'Stairway to Heaven',
             score = 100/2,
-            id = '2'
+            sourceId = '2'
         )
         self.addItem(
             artist = 'Dire Straits',
             title = 'Romeo and Juliet',
             score = 100/3,
-            id = '3'
+            sourceId = '3'
         )
         return self.chart
 

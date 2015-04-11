@@ -46,14 +46,26 @@ class ProviderClass:
         return self.chart
 
     def normalizeChart(self, chart):
-        return chart
+        newchart = list()
+        for i in chart:
+            found = False
+            for j in newchart:
+                try:
+                    if i.ids[self.idName] == j.ids[self.idName]:
+                        found = True
+                        j.addScore(i.getScore())
+                except(KeyError):
+                    pass
+            if not found:
+                newchart.append(i)
+        return newchart
 
-    def addItem(self, artist, title, score, id):
+    def addItem(self, artist, title, score, sourceId):
         self.chart.append(ChartItem(
             artist = artist,
             title = title,
             score = score,
-            id = id,
+            sourceId = sourceId,
             source = self.idName
         ))
 
@@ -61,20 +73,25 @@ class ProviderClass:
 class ChartItem:
     artist = None
     title = None
-    scores = dict()
-    ids = dict()
+    scores = None
+    ids = None
 
-    def __init__(self, artist, title, score, id, source):
+    def __init__(self, artist, title, score, sourceId, source):
         self.artist = artist
         self.title = title
-        self.scores[source] = score
-        self.ids[source] = id
+        self.scores = list()
+        self.addScore(score)
+        self.ids = dict()
+        self.ids[source] = sourceId
 
-    def setScore(self, score, source):
-        self.scores[source] = score
+    def addScore(self, score):
+        self.scores.append(score)
 
-    def setId(self, id, source):
-        self.ids[source] = id
+    def setId(self, sourceId, source):
+        self.ids[source] = sourceId
 
     def getScore(self):
-        return sum(self.scores.values()) / len(self.scores)
+        return sum(self.scores) / len(self.scores)
+
+    def __str__(self):
+        return "ids:{}; artist:{}; title={}".format(self.ids, self.artist, self.title)
