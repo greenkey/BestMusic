@@ -20,6 +20,14 @@ class TestBestMusic(unittest.TestCase):
             self.assertIsNotNone(chart[i].artist)
             self.assertIsNotNone(chart[i].title)
 
+    def test_sort(self):
+        bm = BestMusic()
+        chart = bm.getChart(year=1971)
+        prevScore = chart[0].getScore()
+        for item in chart[1:]:
+            self.assertTrue(item.getScore() <= prevScore)
+            prevScore = item.getScore()
+
 class TestProvider(unittest.TestCase):
 
     def test_getChart(self):
@@ -41,6 +49,20 @@ class TestProvider(unittest.TestCase):
         l = len(chart)
         p.addItem('artist','title',1,'sourceId')
         self.assertEqual(l+1, len(chart))
+
+    def test_sort(self):
+        p = ProviderClass()
+        p.addItem('artist','title',3,'2')
+        p.addItem('artist','title',3,'7')
+        p.addItem('artist','title',3,'0')
+        p.addItem('artist','title',3,'23')
+        p.addItem('artist','title',1,'1')
+        p.sort()
+        chart = p.getChart(year=1971)
+        prevScore = chart[0].getScore()
+        for item in chart[1:]:
+            self.assertTrue(item.getScore() <= prevScore)
+            prevScore = item.getScore()
 
 
 if __name__ == '__main__':

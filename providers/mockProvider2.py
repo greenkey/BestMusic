@@ -23,22 +23,22 @@ class Provider(ProviderClass):
 
     def getChart(self, year):
         self.addItem(
+            artist = 'Dire Straits',
+            title = 'Romeo and Juliet',
+            score = 100/1,
+            sourceId = '3'
+        )
+        self.addItem(
             artist = 'Dolphins',
             title = 'So Long, and Thanks for All the Fish',
-            score = 100/1,
+            score = 100/2,
             sourceId = '1'
         )
         self.addItem(
             artist = 'Led Zeppelin',
             title = 'Stairway to Heaven',
-            score = 100/2,
-            sourceId = '2'
-        )
-        self.addItem(
-            artist = 'Dire Straits',
-            title = 'Romeo and Juliet',
             score = 100/3,
-            sourceId = '3'
+            sourceId = '2'
         )
         self.addItem(
             artist = 'Dire Straits',

@@ -58,8 +58,9 @@ if __name__ == "__main__":
 
         print("Chart for year {}".format(options.year))
         for i in range(len(chart)):
-            print("{}. {} - {}".format(
+            print("{}. {} - {} ({})".format(
                 i+1,
                 chart[i].artist,
-                chart[i].title
+                chart[i].title,
+                chart[i].getScore()
             ))

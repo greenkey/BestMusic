@@ -26,13 +26,17 @@ class BestMusic:
         chart = list()
         for p in self.providers:
             chart.extend(p.getChart(year=year))
-        return self.normalizeChart(chart)
+        chart = self.normalizeChart(chart)
+        chart = self.sortChart(chart)
+        return chart
 
     def normalizeChart(self, chart):
         for p in self.providers:
             chart = p.normalizeChart(chart)
         return chart
 
+    def sortChart(self, chart):
+        return sorted(chart, key=lambda i: i.getScore(), reverse=True)
 
 
 class ProviderClass:
@@ -43,6 +47,7 @@ class ProviderClass:
         self.chart = list()
 
     def getChart(self, year):
+        self.sort()
         return self.chart
 
     def normalizeChart(self, chart):
@@ -59,6 +64,9 @@ class ProviderClass:
             if not found:
                 newchart.append(i)
         return newchart
+
+    def sort(self):
+        self.chart.sort(key=lambda i: i.getScore(), reverse=True)
 
     def addItem(self, artist, title, score, sourceId):
         self.chart.append(ChartItem(
