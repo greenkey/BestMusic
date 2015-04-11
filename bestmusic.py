@@ -25,3 +25,12 @@ class BestMusic:
     def getChart(self, year=None):
         return self.providers[0].getChart(year=year)
 
+
+class ProviderClass:
+
+    def getChart(self=None, year=None):
+        return []
+
+    def normalizeChart(self=None, chart=None):
+        return chart
+
