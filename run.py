@@ -60,6 +60,6 @@ if __name__ == "__main__":
         for i in range(len(chart)):
             print("{}. {} - {}".format(
                 i+1,
-                chart[i]['artist'],
-                chart[i]['title']
+                chart[i].artist,
+                chart[i].title
             ))

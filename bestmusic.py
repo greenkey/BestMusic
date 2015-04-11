@@ -36,10 +36,45 @@ class BestMusic:
 
 
 class ProviderClass:
+    idName = 'not_set'
+    chart = None
 
-    def getChart(self=None, year=None):
-        return []
+    def __init__(self):
+        self.chart = list()
 
-    def normalizeChart(self=None, chart=None):
+    def getChart(self, year):
+        return self.chart
+
+    def normalizeChart(self, chart):
         return chart
 
+    def addItem(self, artist, title, score, id):
+        self.chart.append(ChartItem(
+            artist = artist,
+            title = title,
+            score = score,
+            id = id,
+            source = self.idName
+        ))
+
+
+class ChartItem:
+    artist = None
+    title = None
+    scores = dict()
+    ids = dict()
+
+    def __init__(self, artist, title, score, id, source):
+        self.artist = artist
+        self.title = title
+        self.scores[source] = score
+        self.ids[source] = id
+
+    def setScore(self, score, source):
+        self.scores[source] = score
+
+    def setId(self, id, source):
+        self.ids[source] = id
+
+    def getScore(self):
+        return sum(self.scores.values()) / len(self.scores)
