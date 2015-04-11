@@ -23,7 +23,16 @@ class BestMusic:
             self.providers.append( import_module('providers.' + modname).Provider() )
      
     def getChart(self, year=None):
-        return self.providers[0].getChart(year=year)
+        chart = list()
+        for p in self.providers:
+            chart.extend(p.getChart(year=year))
+        return self.normalizeChart(chart)
+
+    def normalizeChart(self, chart):
+        for p in self.providers:
+            chart = p.normalizeChart(chart)
+        return chart
+
 
 
 class ProviderClass:

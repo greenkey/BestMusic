@@ -11,14 +11,18 @@ from bestmusic import BestMusic
 
 
 class TestBestMusic(unittest.TestCase):
+    bm = BestMusic()
 
     def test_chart(self):
-        bm = BestMusic()
-        chart = bm.getChart(year=1971)
+        self.chart = self.bm.getChart(year=1971)
         self.assertNotEqual(len(chart), 0)
         for i in range(len(chart)):
             self.assertIsNotNone(chart[i]['artist'])
             self.assertIsNotNone(chart[i]['title'])
+
+    def test_normalization(self):
+        normChart = self.bm.normalizeChart(chart=self.chart)
+        self.assertNoEqual(len(normChart), 0)
 
 
 if __name__ == '__main__':

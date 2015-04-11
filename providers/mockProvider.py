@@ -18,7 +18,7 @@ sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 from bestmusic import ProviderClass
 
 
-class Provider:
+class Provider(ProviderClass):
     myIdName = 'mockProvider'
      
     def getChart(self, year=None):
