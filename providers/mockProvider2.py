@@ -20,6 +20,7 @@ from bestmusic import ProviderClass, ChartItem
 
 class Provider(ProviderClass):
     idName = 'mockProvider2'
+    isMock = True
 
     def getChart(self, year):
         self.addItem(

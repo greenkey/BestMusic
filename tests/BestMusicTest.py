@@ -13,7 +13,7 @@ from bestmusic import BestMusic, ProviderClass
 class TestBestMusic(unittest.TestCase):
 
     def test_chart(self):
-        bm = BestMusic()
+        bm = BestMusic(useMock=True)
         chart = bm.getChart(year=1971)
         self.assertNotEqual(len(chart), 0)
         for i in range(len(chart)):
@@ -21,7 +21,7 @@ class TestBestMusic(unittest.TestCase):
             self.assertIsNotNone(chart[i].title)
 
     def test_sort(self):
-        bm = BestMusic()
+        bm = BestMusic(useMock=True)
         chart = bm.getChart(year=1971)
         prevScore = chart[0].getScore()
         for item in chart[1:]:

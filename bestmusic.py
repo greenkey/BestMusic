@@ -15,12 +15,14 @@ __email__ = "lorenzo.mele@agavee.com"
 class BestMusic:
     providers = list()
 
-    def __init__(self):
+    def __init__(self, useMock=False):
         import pkgutil
         import providers
         from importlib import import_module
         for importer, modname, ispkg in pkgutil.iter_modules(providers.__path__):
-            self.providers.append( import_module('providers.' + modname).Provider() )
+            p = import_module('providers.' + modname).Provider()
+            if p.isMock == useMock:
+                self.providers.append( p )
      
     def getChart(self, year=None):
         chart = list()
@@ -42,6 +44,7 @@ class BestMusic:
 class ProviderClass:
     idName = 'not_set'
     chart = None
+    isMock = False
 
     def __init__(self):
         self.chart = list()
