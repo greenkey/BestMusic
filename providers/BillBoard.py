@@ -22,12 +22,8 @@ class Provider(ProviderClass):
     idName = 'BillBoard'
      
     def getChart(self, year):
-        import urllib.request
-        from bs4 import BeautifulSoup
-        response = urllib.request.urlopen('http://en.wikipedia.org/wiki/Billboard_Year-End_Hot_100_singles_of_' + year.__str__())
-        html = response.read()
-        soup = BeautifulSoup(html)
-        table = soup.find("table", { "class" : "wikitable sortable jquery-tablesorter".split() })
+        html = self.parseWebPage('http://en.wikipedia.org/wiki/Billboard_Year-End_Hot_100_singles_of_' + str(year))
+        table = html.find("table", { "class" : "wikitable sortable jquery-tablesorter".split() })
         trs = table.findAll('tr')[1:]
         scoreK = len(trs)
         for tr in trs:

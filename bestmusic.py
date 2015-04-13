@@ -80,6 +80,14 @@ class ProviderClass:
             source = self.idName
         ))
 
+    def parseWebPage(self, url):
+        import urllib.request
+        from bs4 import BeautifulSoup
+        response = urllib.request.urlopen(url)
+        html = response.read()
+        return BeautifulSoup(html)
+
+
 
 class ChartItem:
     artist = None
