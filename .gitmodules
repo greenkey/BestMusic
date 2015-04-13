@@ -1,0 +1,3 @@
+[submodule "submodules/spotipy"]
+	path = submodules/spotipy
+	url = git@github.com:greenkey/spotipy.git
