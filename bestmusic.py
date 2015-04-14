@@ -12,6 +12,9 @@ __license__ = "GPL"
 __version__ = "0.1"
 __email__ = "lorenzo.mele@agavee.com"
 
+
+import cachetools
+
 class BestMusic:
     providers = list()
 
@@ -80,6 +83,7 @@ class ProviderClass:
             source = self.idName
         ))
 
+    @cachetools.lru_cache()
     def parseWebPage(self, url):
         import urllib.request
         from bs4 import BeautifulSoup
