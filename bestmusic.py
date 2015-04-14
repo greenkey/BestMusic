@@ -64,7 +64,8 @@ class ProviderClass:
                 try:
                     if i.ids[self.idName] == j.ids[self.idName]:
                         found = True
-                        j.addScore(i.getScore())
+                        j.addScores(i.getScores())
+                        j.addIds(i.getIds())
                 except(KeyError):
                     pass
             if not found:
@@ -105,16 +106,30 @@ class ChartItem:
         self.scores = list()
         self.addScore(score)
         self.ids = dict()
-        self.ids[source] = sourceId
+        self.addId(sourceId, source)
 
     def addScore(self, score):
-        self.scores.append(score)
+        self.scores.append(float(score))
 
-    def setId(self, sourceId, source):
+    def addScores(self, scores):
+        for score in scores:
+            self.addScore(score)
+
+    def addId(self, sourceId, source):
         self.ids[source] = sourceId
+
+    def addIds(self, ids):
+        for source in ids.keys():
+            self.addId(ids[source], source)
 
     def getScore(self):
         return sum(self.scores) / len(self.scores)
+
+    def getScores(self):
+        return self.scores
+
+    def getIds(self):
+        return self.ids
 
     def __str__(self):
         return "ids:{}; artist:{}; title={}".format(self.ids, self.artist, self.title)
