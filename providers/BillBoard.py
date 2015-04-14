@@ -33,14 +33,14 @@ class Provider(ProviderClass):
                     artist = row[1].text,
                     title = row[0].text[1:-1],
                     score = scoreK / int(tr.th.text),
-                    sourceId = str(year) + '-' + tr.th.text
+                    sourceId = row[1].text + '--' + row[0].text[1:-1]
                 )
             except:
                 self.addItem(
                     artist = row[2].text,
                     title = row[1].text[1:-1],
                     score = scoreK / int(row[0].text),
-                    sourceId = str(year) + '-' + row[0].text
+                    sourceId = row[1].text + '--' + row[0].text[1:-1]
                 )
         return self.chart
 

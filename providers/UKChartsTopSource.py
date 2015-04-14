@@ -34,7 +34,7 @@ class Provider(ProviderClass):
                 artist = row[1].text,
                 title = row[2].text,
                 score = scoreK / int(row[0].text),
-                sourceId = str(year) + '-' + row[0].text
+                sourceId = row[1].text + '--' + row[2].text
             )
         return self.chart
 
