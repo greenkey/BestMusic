@@ -27,24 +27,25 @@ class Provider(ProviderClass):
 
     def normalizeChart(self, chart):
         for item in chart:
-            print('-------------------------')
-            print(item)
             song = self.getSongData(item.title, item.artist)
             if song:
                 item.title = song['name']
                 item.artist = song['artists'][0]['name']
                 item.addId(song['id'], self.idName)
-            print(item)
         return ProviderClass.normalizeChart(self, chart)
 
     @cachetools.ttl_cache(maxsize=2048, ttl=7*24*60*60) #cached for 1 week
     def getSongData(self, title, artist):
         # search for the song
-        artists = artist.replace('featuring',';').replace('&',';').replace('and',';').split(';')
+        artists = artist.lower().replace('featuring',';').replace('ft',';').replace('&',';').replace('and',';').split(';')
         results = self.sp.search(
             q=artists[0]+' '+title, 
             limit=20
         )
         for i, t in enumerate(results['tracks']['items']):
-            # TODO: place a real algorithm
+            if 'karaoke' in t['name'].lower():
+                continue
+            if 'remix' in t['name'].lower():
+                if 'remix' not in title.lower():
+                    continue
             return t
